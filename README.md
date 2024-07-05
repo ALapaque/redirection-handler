@@ -12,7 +12,7 @@ The HTML page in this project checks for a specific parameter (`redirectTo`) in 
 - It looks for the `redirectTo` parameter in the URL.
 - If the `redirectTo` parameter exists, the page redirects the user to the specified URL.
 - If the `redirectTo` parameter is not provided, the page does nothing.
-- It will also look for `storeId` and `storefrontId` and `status` to be able to fetch the payment return url
+- It will also look for `storeId` & `storefrontId` & `status` to be able to fetch the payment return url
 
 ## Usage
 
