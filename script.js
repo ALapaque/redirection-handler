@@ -16,7 +16,9 @@ async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStor
 }
 
 function handleWindowError() {
-  window.open(decodeURIComponent(fallbackTo), '_self')
+  setTimeout(() => {
+    window.open(decodeURIComponent(fallbackTo), '_self')
+  }, 5000)
 }
 
 function redirect(redirectTo, fallbackTo) {
