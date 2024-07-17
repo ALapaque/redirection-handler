@@ -16,15 +16,13 @@ async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStor
 }
 
 function handleWindowError() {
-  alert('The specified url was not found');
+  window.open(decodeURIComponent(fallbackTo), '_self')
 }
 
 function redirect(redirectTo, fallbackTo) {
   window.location.href = decodeURIComponent(redirectTo)
 
-  setTimeout(() => {
-    window.onError = window.open(decodeURIComponent(fallbackTo), '_self')
-  }, 5000)
+  window.onError = window.open(decodeURIComponent(fallbackTo), '_self')
 }
 
 
