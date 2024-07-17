@@ -24,7 +24,9 @@ function handleWindowError(fallbackTo) {
 function redirect(redirectTo, fallbackTo) {
   window.location.href = decodeURIComponent(redirectTo)
 
-  window.onError = handleWindowError(fallbackTo)
+  if (!!fallbackTo) {
+    window.onError = handleWindowError(fallbackTo)
+  }
 }
 
 
