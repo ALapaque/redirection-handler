@@ -20,9 +20,8 @@ function handleWindowError() {
 }
 
 function redirect(redirectTo, fallbackTo) {
-  let windowProxy = window.open(decodeURIComponent(redirectTo), '_self');
-
-  windowProxy.onError = window.open(decodeURIComponent(fallbackTo), '_self')
+  window.location.href = decodeURIComponent(redirectTo)
+  window.onError = window.open(decodeURIComponent(fallbackTo), '_self')
 }
 
 
