@@ -1,5 +1,4 @@
 const H3_CONTAINER_TEXT_ID = 'text__container';
-const SPINNER_CONTAINER_ID = 'spinner__container';
 const SPINNER_ID = 'spinner';
 
 async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStoreId, paymentStatus) {
@@ -19,6 +18,10 @@ async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStor
   }
 }
 
+function isMobileBrowser() {
+  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 function handleWebshopIsNotActivated() {
   document.getElementById(H3_CONTAINER_TEXT_ID).textContent = 'This link must be open on your mobile!';
   document.getElementById(H3_CONTAINER_TEXT_ID).style.color = 'red';
@@ -29,7 +32,8 @@ function handleWindowError(redirectTo, fallbackTo) {
   // This means the redirectTo and the fallbackTo is to a mobile app, that means the webshop is not active
   if (
     (!redirectTo.includes('http://') || !redirectTo.includes('https://')) &&
-    (!fallbackTo.includes('http://') || !fallbackTo.includes('https://'))
+    (!fallbackTo.includes('http://') || !fallbackTo.includes('https://')) &&
+    !isMobileBrowser()
   ) {
     return handleWebshopIsNotActivated()
   }
