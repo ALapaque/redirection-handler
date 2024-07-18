@@ -31,8 +31,8 @@ function handleWebshopIsNotActivated() {
 function handleWindowError(redirectTo, fallbackTo) {
   // This means the redirectTo and the fallbackTo is to a mobile app, that means the webshop is not active
   if (
-    (!redirectTo.includes('http://') || !redirectTo.includes('https://')) &&
-    (!fallbackTo.includes('http://') || !fallbackTo.includes('https://')) &&
+    (!redirectTo.includes('http://') && !redirectTo.includes('https://')) &&
+    (!fallbackTo.includes('http://') && !fallbackTo.includes('https://')) &&
     !isMobileBrowser()
   ) {
     return handleWebshopIsNotActivated()
