@@ -19,7 +19,7 @@ async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStor
 }
 
 function isMobileBrowser() {
-  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|webOS|Windows Phone|Kindle|Silk-Accelerated|Mobile|Tablet|Opera Mobi|Opera Tablet|Fennec/i.test(navigator.userAgent);
 }
 
 function handleWebshopIsNotActivated() {
