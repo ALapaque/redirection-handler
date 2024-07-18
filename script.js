@@ -1,3 +1,7 @@
+const H3_CONTAINER_TEXT_ID = 'text__container';
+const SPINNER_CONTAINER_ID = 'spinner__container';
+const SPINNER_ID = 'spinner';
+
 async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStoreId, paymentStatus) {
   const url = import.meta.env.VITE_API_URL;
   try {
@@ -15,7 +19,22 @@ async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStor
   }
 }
 
-function handleWindowError(fallbackTo) {
+function handleWebshopIsNotActivated() {
+  document.getElementById(H3_CONTAINER_TEXT_ID).textContent = 'This link must be open on your mobile!';
+  document.getElementById(H3_CONTAINER_TEXT_ID).style.color = 'red';
+  document.getElementById(SPINNER_ID).style.display = 'none';
+}
+
+function handleWindowError(redirectTo, fallbackTo) {
+  // This means the redirectTo and the fallbackTo is to a mobile app, that means the webshop is not active
+  if (
+    (!redirectTo.includes('http://') || !redirectTo.includes('https://')) &&
+    (!fallbackTo.includes('http://') || !fallbackTo.includes('https://'))
+  ) {
+    return handleWebshopIsNotActivated()
+  }
+
+
   setTimeout(() => {
     window.open(decodeURIComponent(fallbackTo), '_self')
   }, 5000)
@@ -25,7 +44,7 @@ function redirect(redirectTo, fallbackTo) {
   window.location.href = decodeURIComponent(redirectTo)
 
   if (!!fallbackTo) {
-    window.onError = handleWindowError(fallbackTo)
+    window.onError = handleWindowError(redirectTo, fallbackTo)
   }
 }
 
