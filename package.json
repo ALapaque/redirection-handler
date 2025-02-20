@@ -1,6 +1,6 @@
 {
   "name": "redirection-handler",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "This package is handling redirection depending on parameters found in the url",
   "main": "config.js",
   "scripts": {

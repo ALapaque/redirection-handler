@@ -1,10 +1,12 @@
 const H3_CONTAINER_TEXT_ID = 'text__container';
 const SPINNER_ID = 'spinner';
 
-async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStoreId, paymentStatus) {
+async function getPaymentRedirectionUrl(fallbackTo, storefrontId, storefrontStoreId, paymentStatus, paymentReference) {
   const url = import.meta.env.VITE_API_URL;
   try {
-    const response = await fetch(`${url}/api/v8/ClickAndCollect/Payment/ReturnUrl/${storefrontId}/${storefrontStoreId}/${paymentStatus}`);
+    const response = await fetch(
+      `${url}/api/v8/ClickAndCollect/Payment/ReturnUrl/${storefrontId}/${storefrontStoreId}/${paymentStatus}?paymentReference=${paymentReference}`
+    );
 
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -29,7 +31,6 @@ function handleWebshopIsNotActivated() {
 }
 
 function handleWindowError(redirectTo, fallbackTo) {
-  console.log('windowErro :: ', {redirectTo, fallbackTo, isMobileBrowser: isMobileBrowser()})
   // This means the redirectTo and the fallbackTo is to a mobile app, that means the webshop is not active
   if (
     (!redirectTo.includes('http://') && !redirectTo.includes('https://')) &&
@@ -62,13 +63,14 @@ window.onload = function () {
   const storeId = params.get('storeId');
   const storefrontId = params.get('storefrontId');
   const paymentStatusType = params.get('status');
+  const paymentReference = params.get('s');
 
   const _handleRedirectToParameter = () => {
     redirect(redirectTo, fallbackTo);
   };
 
   const _handleRedirectAfterPayment = () => {
-    void getPaymentRedirectionUrl(fallbackTo, storeId, storefrontId, paymentStatusType);
+    void getPaymentRedirectionUrl(fallbackTo, storeId, storefrontId, paymentStatusType, paymentReference);
   };
 
   if (redirectTo) {
